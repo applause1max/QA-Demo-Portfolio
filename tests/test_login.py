@@ -114,4 +114,3 @@ def test_login_empty_fields():
         expect(page.get_by_text("Username is required")).to_be_visible()
 
         browser.close()
-
