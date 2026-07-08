@@ -24,3 +24,28 @@ def test_sort_name_ascending():
 
         browser.close()
 
+
+def test_sort_name_descending():
+    
+    """TC-008: Verify sorting in descending order"""
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+
+        page.goto("https://www.saucedemo.com/")
+        page.get_by_role("textbox", name="Username").fill(STANDARD_USER)
+        page.get_by_role("textbox", name="Password").fill(PASSWORD)
+        page.get_by_role("button", name="Login").click()
+
+        page.locator("[data-test='product-sort-container']").select_option("za")
+
+        products = page.locator("[data-test='inventory-item-name']").all_text_contents()
+
+        assert products == sorted(products, reverse=True)
+
+        browser.close()
+
+
+
+
