@@ -4,3 +4,4 @@ __pycache__/
 .vscode/
 report.html
 *.pyc
+test-results/

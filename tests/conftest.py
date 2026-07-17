@@ -1,6 +1,10 @@
 import pytest
 from playwright.sync_api import sync_playwright
 
+STANDARD_USER = "standard_user"
+LOCKED_OUT_USER = "locked_out_user"
+PASSWORD = "secret_sauce"
+
 
 @pytest.fixture
 def page(request):
@@ -28,3 +32,12 @@ def pytest_runtest_makereport(item, call):
     report = yield
     setattr(item, "report_" + report.when, report)
     return report
+
+
+@pytest.fixture
+def logged_in_page(page):
+    page.goto("https://www.saucedemo.com/")
+    page.get_by_role("textbox", name="Username").fill(STANDARD_USER)
+    page.get_by_role("textbox", name="Password").fill(PASSWORD)
+    page.get_by_role("button", name="Login").click()
+    return page
