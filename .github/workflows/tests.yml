@@ -1,0 +1,30 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-phyton@v5
+        with:
+          python-version: "3.12"
+          
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install PW Browser
+        run: playwright install --with-deps chromium
+
+      - name: Run Tests
+        run: pytest
+
+
+
+
+  
