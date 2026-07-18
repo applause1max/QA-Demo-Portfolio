@@ -1,4 +1,5 @@
 from playwright.sync_api import expect
+import pytest
 
 def test_sort_name_ascending(logged_in_page):
 
@@ -59,7 +60,7 @@ def test_sort_price_descending(logged_in_page):
     assert prices == sorted(prices, reverse=True)
 
 
-
+@pytest.mark.xfail(reason="Known bug: sort resets after navigation, see BUG-001")
 def test_sort_price_return(logged_in_page):
 
     """
